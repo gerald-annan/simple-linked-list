@@ -6,7 +6,7 @@ defmodule LinkedList do
   """
   @spec new() :: t
   def new() do
-    # Your implementation here...
+    []
   end
 
   @doc """
@@ -14,7 +14,7 @@ defmodule LinkedList do
   """
   @spec push(t, any()) :: t
   def push(list, elem) do
-    # Your implementation here...
+    list ++ [elem]
   end
 
   @doc """
@@ -22,7 +22,7 @@ defmodule LinkedList do
   """
   @spec count(t) :: non_neg_integer()
   def count(list) do
-    # Your implementation here...
+    length(list)
   end
 
   @doc """
@@ -31,30 +31,38 @@ defmodule LinkedList do
   @spec empty?(t) :: boolean()
   def empty?(list) do
     # Your implementation here...
+    length(list) == 0
   end
 
   @doc """
   Get the value of a head of the LinkedList
   """
-  @spec peek(t) :: {:ok, any()} | {:error, :empty_list}
-  def peek(list) do
-    # Your implementation here...
+  @spec peek(t :: list()) :: {:ok, any()} | {:error, :empty_list}
+  def peek([_ | _] = list) do
+    [elem | _] = Enum.reverse(list)
+    {:ok, elem}
   end
+
+  def peek([]), do: {:error, :empty_list}
 
   @doc """
   Get tail of a LinkedList
   """
-  @spec tail(t) :: {:ok, t} | {:error, :empty_list}
-  def tail(list) do
-    # Your implementation here...
+  @spec tail(t :: list()) :: {:ok, t} | {:error, :empty_list}
+  def tail([_ | tail]) do
+    {:ok, tail}
   end
+
+  def tail([]), do: {:error, :empty_list}
 
   @doc """
   Remove the head from a LinkedList
   """
-  @spec pop(t) :: {:ok, any(), t} | {:error, :empty_list}
+  def pop([]), do: {:error, :empty_list}
+
   def pop(list) do
-    # Your implementation here...
+    [t | rest] = Enum.reverse(list)
+    {:ok, t, Enum.reverse(rest)}
   end
 
   @doc """
@@ -62,7 +70,7 @@ defmodule LinkedList do
   """
   @spec from_list(list()) :: t
   def from_list(list) do
-    # Your implementation here...
+    list
   end
 
   @doc """
@@ -70,7 +78,7 @@ defmodule LinkedList do
   """
   @spec to_list(t) :: list()
   def to_list(list) do
-    # Your implementation here...
+    list
   end
 
   @doc """
@@ -78,6 +86,6 @@ defmodule LinkedList do
   """
   @spec reverse(t) :: t
   def reverse(list) do
-    # Your implementation here...
+    Enum.reverse(list)
   end
 end
